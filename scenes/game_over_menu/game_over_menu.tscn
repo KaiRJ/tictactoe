@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://4t6xodde48gh"]
+
+[ext_resource type="Script" path="res://scenes/game_over_menu/game_over_menu.gd" id="1_865qx"]
+[ext_resource type="FontFile" uid="uid://cl116rahkaxh4" path="res://art/Xolonium-Regular.ttf" id="2_6pm5d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjhrs"]
+bg_color = Color(0, 0.239216, 0.305882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.751324, 0.838248, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="GameOverMenu" type="CanvasLayer" groups=["UI"]]
+script = ExtResource("1_865qx")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fjhrs")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_6pm5d")
+theme_override_font_sizes/font_size = 25
+text = "Player 1 wins!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="QuitButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -75.0
+offset_right = 60.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_6pm5d")
+theme_override_font_sizes/font_size = 20
+text = "Quit"
+
+[connection signal="pressed" from="Panel/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgh24soxvixsy"]
+
+[ext_resource type="FontFile" uid="uid://cl116rahkaxh4" path="res://art/Xolonium-Regular.ttf" id="1_7ch4s"]
+[ext_resource type="Script" path="res://scenes/hud/hud.gd" id="1_jdqmo"]
+
+[node name="HUD" type="CanvasLayer" groups=["UI"]]
+script = ExtResource("1_jdqmo")
+
+[node name="Player1Label" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("1_7ch4s")
+text = "Player 1:
+"
+
+[node name="Score" type="Label" parent="Player1Label"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0"
+horizontal_alignment = 1
+
+[node name="Player2Label" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("1_7ch4s")
+text = "Player 2:"
+horizontal_alignment = 2
+
+[node name="Score" type="Label" parent="Player2Label"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 90.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_7ch4s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MenuButton" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_7ch4s")
+text = "Menu"
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]

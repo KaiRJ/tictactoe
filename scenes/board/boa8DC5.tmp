@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cew84f5dda8rp"]
+
+[ext_resource type="Texture2D" uid="uid://dnsmp3tb4yp6b" path="res://art/board.png" id="1_vi572"]
+[ext_resource type="Script" path="res://scenes/board/board.gd" id="2_bfbbh"]
+[ext_resource type="PackedScene" uid="uid://uryd0kppueby" path="res://scenes/square/square.tscn" id="2_eagde"]
+
+[node name="Board" type="Sprite2D"]
+texture = ExtResource("1_vi572")
+script = ExtResource("2_bfbbh")
+
+[node name="TopLeft" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(-96, -96)
+
+[node name="TopMiddle" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(0, -96)
+grid_position = Vector2i(0, 1)
+
+[node name="TopRight" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(96, -96)
+grid_position = Vector2i(0, 2)
+
+[node name="MiddleLeft" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(-96, 0)
+grid_position = Vector2i(1, 0)
+
+[node name="Middle" parent="." instance=ExtResource("2_eagde")]
+grid_position = Vector2i(1, 1)
+
+[node name="MiddleRight" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(96, 0)
+grid_position = Vector2i(1, 2)
+
+[node name="BottomLeft" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(-96, 96)
+grid_position = Vector2i(2, 0)
+
+[node name="BottomMiddle" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(0, 96)
+grid_position = Vector2i(2, 1)
+
+[node name="BottomRight" parent="." instance=ExtResource("2_eagde")]
+position = Vector2(96, 96)
+grid_position = Vector2i(2, 2)
