@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://uryd0kppueby"]
 
-[ext_resource type="Script" path="res://scenes/square/square.gd" id="1_qj746"]
+[ext_resource type="Script" uid="uid://bfojohxud3uvn" path="res://scenes/square/square.gd" id="1_qj746"]
 
 [node name="Square" type="Area2D" groups=["squares"]]
 script = ExtResource("1_qj746")

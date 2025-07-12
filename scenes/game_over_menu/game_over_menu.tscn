@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://4t6xodde48gh"]
 
-[ext_resource type="Script" path="res://scenes/game_over_menu/game_over_menu.gd" id="1_865qx"]
+[ext_resource type="Script" uid="uid://dlkxd63kvwmf" path="res://scenes/game_over_menu/game_over_menu.gd" id="1_865qx"]
 [ext_resource type="FontFile" uid="uid://cl116rahkaxh4" path="res://art/Xolonium-Regular.ttf" id="2_6pm5d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjhrs"]
