@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://d324rwh5voqes"]
+
+[ext_resource type="Script" uid="uid://bioyjdbg4tu37" path="res://scenes/main_game/main_game.gd" id="1_8ywsm"]
+[ext_resource type="PackedScene" uid="uid://cew84f5dda8rp" path="res://scenes/board/board.tscn" id="2_6eclk"]
+[ext_resource type="PackedScene" uid="uid://dgh24soxvixsy" path="res://scenes/hud/hud.tscn" id="3_i3kwu"]
+[ext_resource type="PackedScene" uid="uid://4t6xodde48gh" path="res://scenes/game_over_menu/game_over_menu.tscn" id="4_mijjq"]
+[ext_resource type="PackedScene" uid="uid://dyxitjmkr2gmx" path="res://scenes/in_game_menu/in_game_menu.tscn" id="5_ldk84"]
+
+[node name="MainGame" type="Node"]
+script = ExtResource("1_8ywsm")
+to_win_total = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.540435, 0.754487, 0.938484, 1)
+
+[node name="Board" parent="." instance=ExtResource("2_6eclk")]
+position = Vector2(240, 296)
+
+[node name="HUD" parent="." instance=ExtResource("3_i3kwu")]
+
+[node name="GameOverMenu" parent="." instance=ExtResource("4_mijjq")]
+visible = false
+
+[node name="InGameMenu" parent="." instance=ExtResource("5_ldk84")]
+
+[connection signal="winner" from="Board" to="." method="_on_board_winner"]
+[connection signal="show_in_game_menu" from="HUD" to="." method="_on_hud_show_in_game_menu"]
+[connection signal="show_main_menu" from="GameOverMenu" to="." method="_on_game_over_menu_show_main_menu"]
+[connection signal="continue_game" from="InGameMenu" to="." method="_on_in_game_menu_continue_game"]
+[connection signal="quit_game" from="InGameMenu" to="." method="_on_in_game_menu_quit_game"]

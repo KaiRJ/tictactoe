@@ -5,22 +5,23 @@ signal winner(player : int)
 @export var player1 : CompressedTexture2D
 @export var player2 : CompressedTexture2D
 
-var board_data # TODO: Rename
+var board_data
 var current_player : int
 
 
 func _ready():
-	# Connect all the square signals to the board
-	# TODO: can i replace this with call_group?
+	# connect all the square signals to the board
 	var squares = get_tree().get_nodes_in_group("squares")
 	for square : Square in squares:
 		square.square_pressed.connect(_on_square_pressed.bind(square))
 
-	# Make sure board is set to default
+	# make sure board is set to default
 	new_game()
 
 
-func new_game(starting_player: int = 1):
+func new_game(starting_player: int = 1): # TODO: can i use enums here
+	"Reset everything for a new game."
+	
 	# reset all the squares
 	get_tree().call_group("squares", "reset")
 
@@ -31,18 +32,20 @@ func new_game(starting_player: int = 1):
 		[0, 0, 0]
 	]
 
+	# set the starting player
 	current_player = starting_player
 
 
-func freeze_board(freeze : bool):
-	# False means the player can't select any squares
-	# TODO: can i replace this with call_group?
-	var squares = get_tree().get_nodes_in_group("squares")
-	for square : Square in squares:
-		square.set_button_visability(not freeze)
+func freeze_board(freeze : bool) -> void:
+	"Make all the squares of the board unpressable"
+	
+	# false means the player can't select any squares
+	get_tree().call_group("squares", "set_button_visability", not freeze)
 
 
 func check_for_win() -> bool:
+	"Check if the board is in a win state"
+	
 	var winner_found : bool = false
 
 	# Check if any rows or columns are complete
@@ -60,6 +63,8 @@ func check_for_win() -> bool:
 
 
 func check_for_draw() -> bool:
+	"Check if the game ended in a draw"
+	
 	var draw_found : bool = false
 
 	var total = 0
@@ -72,10 +77,12 @@ func check_for_draw() -> bool:
 	return draw_found
 
 func _on_square_pressed(square : Square):
+	"Run all the game check when a square is pressed."
+	
 	# Set the square properties
 	square.set_button_visability(false)
 
-	# Set the position just pressed
+	# Save the players choice on the board
 	var grid_position = square.get_grid_position()
 	board_data[grid_position.x][grid_position.y] = current_player
 
@@ -85,13 +92,15 @@ func _on_square_pressed(square : Square):
 	elif current_player == -1:
 		square.set_face_texture(player2)
 
+	# Check if the game has been won
 	if check_for_win():
 		freeze_board(true)
 		winner.emit(current_player)
-
+	
+	# Check if the game ended in a draw
 	if check_for_draw():
 		freeze_board(true)
 		winner.emit(0)
 
-	# Flip the current player
+	# Flip the current player for the next game
 	current_player *= -1

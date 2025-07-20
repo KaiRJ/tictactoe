@@ -9,11 +9,12 @@ var current_player : int
 
 
 func _ready():
-	hide_all_ui_elements()
-	$MainMenu.show()
+	new_game(1)
 
 
 func new_game(starting_player: int):
+	"Set up the game for a new match."
+	
 	hide_all_ui_elements()
 
 	# Reset all the game variables
@@ -30,11 +31,14 @@ func new_game(starting_player: int):
 	# Show the correct UI elements
 	$HUD.show()
 	$Board.show()
-
+	
+	# Set the board up for a new game
 	$Board.new_game(current_player)
 
 
 func _on_board_winner(player : int):
+	"Check who won and perform correct tasks."
+	
 	var text: String
 	match player:
 		0:
@@ -82,10 +86,12 @@ func _on_in_game_menu_continue_game():
 
 
 func _on_in_game_menu_quit_game():
-	hide_all_ui_elements()
-	$MainMenu.show()
+	quit_game()
 
 
 func _on_game_over_menu_show_main_menu():
-	hide_all_ui_elements()
-	$MainMenu.show()
+	quit_game()
+	
+	
+func quit_game():
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")

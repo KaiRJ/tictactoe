@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node
 
 signal show_main_menu
 

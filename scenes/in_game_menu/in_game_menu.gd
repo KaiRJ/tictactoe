@@ -9,4 +9,5 @@ func _on_continue_button_pressed():
 
 
 func _on_quit_button_pressed():
+	# TODO should switch to main menu scene 
 	quit_game.emit()

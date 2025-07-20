@@ -1,10 +1,8 @@
-extends CanvasLayer
-
-signal start_game(starting_player: int)
+extends Node
 
 
 func _on_start_game_button_pressed():
-	start_game.emit(1)
+	get_tree().change_scene_to_file("res://scenes/main_game/main_game.tscn")
 
 
 func _on_quit_button_pressed():
