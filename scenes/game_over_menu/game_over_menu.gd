@@ -1,4 +1,4 @@
-extends Node
+extends Control
 
 signal show_main_menu
 

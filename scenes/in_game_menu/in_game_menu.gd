@@ -1,7 +1,29 @@
-extends CanvasLayer
+extends Control
 
 signal continue_game
 signal quit_game
+
+@onready var label = $PanelContainer/MarginContainer/VBoxContainer/Label
+@onready var continue_button = $PanelContainer/MarginContainer/VBoxContainer/ContinueButton
+@onready var quit_button = $PanelContainer/MarginContainer/VBoxContainer/QuitButton
+
+
+func update_label(text: String) -> void:
+	label.text = text
+	
+	
+func show_continue_button(show: bool) -> void:
+	if show:
+		continue_button.show()
+	else:
+		continue_button.hide()
+	
+
+func show_quit_button(show: bool) -> void:
+	if show:
+		quit_button.show()
+	else:
+		quit_button.hide()
 
 
 func _on_continue_button_pressed():
@@ -9,5 +31,4 @@ func _on_continue_button_pressed():
 
 
 func _on_quit_button_pressed():
-	# TODO should switch to main menu scene 
 	quit_game.emit()

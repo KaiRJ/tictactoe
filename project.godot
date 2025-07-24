@@ -17,17 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://scripts/globals.gd"
+Constants="*res://scripts/constants.gd"
 
 [display]
 
 window/size/viewport_width=480
 window/size/viewport_height=480
 window/stretch/mode="viewport"
-
-[global_group]
-
-UI=""
 
 [gui]
 
