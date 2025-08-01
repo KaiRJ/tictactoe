@@ -1,16 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://cew84f5dda8rp"]
+[gd_scene load_steps=7 format=3 uid="uid://cew84f5dda8rp"]
 
 [ext_resource type="Texture2D" uid="uid://dnsmp3tb4yp6b" path="res://art/board.png" id="1_vi572"]
 [ext_resource type="Script" uid="uid://bac7owv5abdq5" path="res://scenes/board/board.gd" id="2_bfbbh"]
 [ext_resource type="PackedScene" uid="uid://uryd0kppueby" path="res://scenes/square/square.tscn" id="2_eagde"]
 [ext_resource type="Texture2D" uid="uid://ba46mlbpc5yys" path="res://art/x.png" id="3_b6u2j"]
 [ext_resource type="Texture2D" uid="uid://d7uox6ygm4f4" path="res://art/o.png" id="4_ir24l"]
+[ext_resource type="FontFile" uid="uid://cl116rahkaxh4" path="res://art/Xolonium-Regular.ttf" id="5_ci4ar"]
 
 [node name="Board" type="Sprite2D"]
 texture = ExtResource("1_vi572")
 script = ExtResource("2_bfbbh")
 player1 = ExtResource("3_b6u2j")
 player2 = ExtResource("4_ir24l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = -223.0
+offset_right = -152.0
+offset_bottom = -143.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ci4ar")
+theme_override_font_sizes/font_size = 25
+text = "Current player: "
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 
 [node name="TopLeft" parent="." instance=ExtResource("2_eagde")]
 position = Vector2(-96, -96)

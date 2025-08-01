@@ -16,27 +16,30 @@ func _ready():
 		square.square_pressed.connect(_on_square_pressed.bind(square))
 
 
-func new_game(starting_player: Constants.Player = Constants.Player.ONE):
-	"Reset everything for a new game."
-	
-	# Reset all the squares
+func new_game(starting_player := Constants.Player.ONE):
 	get_tree().call_group("squares", "reset")
 
-	# Reset the board_data array
 	board_data = [
 		[0, 0, 0],
 		[0, 0, 0],
 		[0, 0, 0]
 	]
+	
+	set_current_player(starting_player)
+	
 
-	# Set the starting player
-	current_player = starting_player
+func set_current_player(player: Constants.Player):
+	current_player = player
+	
+	# Set the current player square
+	match current_player:
+		Constants.Player.ONE:
+			$HBoxContainer/TextureRect.set_texture(player1)
+		Constants.Player.TWO:
+			$HBoxContainer/TextureRect.set_texture(player2)
 
 
 func _on_square_pressed(square : Square):
-	"Run all the game check when a square is pressed."
-	
-	# Set the square so it can't be pressed again
 	square.set_button_visability(false)
 
 	# Save the players choice on the board_data
@@ -50,23 +53,30 @@ func _on_square_pressed(square : Square):
 		Constants.Player.TWO:
 			square.set_face_texture(player2)
 
-	# Check if the game has been won or ended in a draw
+	if check_for_game_end():
+		return
+		
+	set_current_player((-1 * current_player) as Constants.Player)
+	
+	if (Globals.ai_active) and (current_player == Constants.Player.TWO):
+		make_ai_move()
+
+
+func check_for_game_end() -> bool:
 	if check_for_win():
 		freeze_board(true)
 		winner.emit(current_player)
-	
-	# Check if the game ended in a draw
+		return true
+
 	if check_for_draw():
 		freeze_board(true)
 		winner.emit(Constants.Player.NONE)
+		return true
 
-	# Flip the current player for the next turn
-	current_player = (-1 * current_player) as Constants.Player
+	return false
 	
 
 func check_for_win() -> bool:
-	"Check if the board is in a win state."
-	
 	var winner_found : bool = false
 
 	# Check if any rows or columns are complete
@@ -84,8 +94,6 @@ func check_for_win() -> bool:
 
 
 func check_for_draw() -> bool:
-	"Check if the game ended in a draw"
-	
 	var draw_found : bool = false
 
 	var total = 0
@@ -96,10 +104,19 @@ func check_for_draw() -> bool:
 		draw_found = true
 
 	return draw_found
+
+
+func make_ai_move() -> void:
+	var free_squares: Array[Square] = []
+	# TODO on a press i could remove the buttom from a "free" group and just get them 
+	# then on a new game/reset, move them all back
+	for square : Square in get_tree().get_nodes_in_group("squares"):
+		if square.visible:
+			free_squares.append(square)
 	
-	
+	var random_square: Square = free_squares.pick_random()
+	random_square._on_button_pressed()
+
+
 func freeze_board(freeze : bool) -> void:
-	"Make all the squares of the board unpressable"
-	
-	# false means the player can't select any squares
 	get_tree().call_group("squares", "set_button_visability", not freeze)

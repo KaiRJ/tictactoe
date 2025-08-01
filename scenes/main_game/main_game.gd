@@ -1,21 +1,17 @@
 extends Node
 
-@export var to_win_total : int = 3
+var player1_score: int
+var player2_score: int
+var current_round: int
 
-var player1_score : int
-var player2_score : int
-var current_round : int
-var last_starting_player : Constants.Player
+var last_starting_player: Constants.Player
 
 
 func _ready():
- 	# Start a new game on ready
 	new_game(Constants.Player.ONE)
 
 
-func new_game(starting_player: Constants.Player):
-	"Set up the game and board for a new match."
-	
+func new_game(starting_player: Constants.Player):	
 	# Show the correct UI elements
 	$HUD.show()
 	$Board.show()
@@ -27,53 +23,46 @@ func new_game(starting_player: Constants.Player):
 	player2_score = 0
 	current_round = 1
 
-	# Set the labels
 	update_labels()
-	
-	# Set the board up for a new game
 	$Board.new_game(starting_player)
 
 
-func _on_board_winner(winner : Constants.Player):
-	"When the board scene signals a winner check who won, update variables and either end the game
-	or start a new round."
-	
-	# Update the player scores depending on who won the round
-	# TODO update variable name
+func _on_board_winner(winner : Constants.Player):	
+	# Update the player scores and increment the round
 	var winner_text = update_player_scores(winner)
+	current_round += 1
 	update_labels()
 	
 	# Check if either player has won the whole game
-	if (player1_score == to_win_total) or (player2_score == to_win_total):
+	if (player1_score == Globals.to_win_total) or (player2_score == Globals.to_win_total):
 		# Show in gmae menu with quit option
 		show_in_game_menu(winner_text + "the game!", false, true)
 	else: 
 		# Set up the game for the next round and show the continue pop up
-		current_round += 1
 		last_starting_player = (-1*last_starting_player) as Constants.Player
 		$Board.new_game(last_starting_player)
 		show_in_game_menu(winner_text + "this round!", true, false)
 
 
-func update_player_scores(winner: Constants.Player) -> String:
-	"Update scores for who won and return a string of the winner/a draw."
-	
+func update_player_scores(winner: Constants.Player) -> String:	
 	match winner:
 		Constants.Player.NONE:
 			return "No one wins "
 		Constants.Player.ONE:
 			player1_score += 1
-			return "Player 1 wins "
+			return Globals.player1_name + " wins "
 		Constants.Player.TWO:
 			player2_score += 1
-			return "Player 2 wins "
+			return Globals.player2_name + " wins "
 		_:
 			return "Error: Invalid winner!"
-			
+
 
 func update_labels():
-	$HUD/Player1Label/Score.text = str(player1_score) + "/" + str(to_win_total)
-	$HUD/Player2Label/Score.text = str(player2_score) + "/" + str(to_win_total)
+	$HUD/Player1Label.text = Globals.player1_name + ":"
+	$HUD/Player1Label/Score.text = str(player1_score) + "/" + str(Globals.to_win_total)
+	$HUD/Player2Label.text = Globals.player2_name + ":"
+	$HUD/Player2Label/Score.text = str(player2_score) + "/" + str(Globals.to_win_total)
 	$HUD/Label.text = "Round " + str(current_round)
 	
 

@@ -12,15 +12,15 @@ func update_label(text: String) -> void:
 	label.text = text
 	
 	
-func show_continue_button(show: bool) -> void:
-	if show:
+func show_continue_button(show_button: bool) -> void:
+	if show_button:
 		continue_button.show()
 	else:
 		continue_button.hide()
 	
 
-func show_quit_button(show: bool) -> void:
-	if show:
+func show_quit_button(show_button: bool) -> void:
+	if show_button:
 		quit_button.show()
 	else:
 		quit_button.hide()

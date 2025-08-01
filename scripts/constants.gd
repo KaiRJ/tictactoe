@@ -5,3 +5,8 @@ enum Player {
 	TWO = -1,
 	NONE = 0
 }
+
+enum AI {
+	EASY,
+	HARD
+}

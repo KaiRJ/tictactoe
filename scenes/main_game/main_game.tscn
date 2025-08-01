@@ -7,7 +7,6 @@
 
 [node name="MainGame" type="Node"]
 script = ExtResource("1_8ywsm")
-to_win_total = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
