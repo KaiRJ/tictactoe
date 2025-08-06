@@ -3,9 +3,9 @@ extends Control
 signal continue_game
 signal quit_game
 
-@onready var label = $PanelContainer/MarginContainer/VBoxContainer/Label
-@onready var continue_button = $PanelContainer/MarginContainer/VBoxContainer/ContinueButton
-@onready var quit_button = $PanelContainer/MarginContainer/VBoxContainer/QuitButton
+@onready var label = $%Label
+@onready var continue_button = $%ContinueButton
+@onready var quit_button = $%QuitButton
 
 
 func update_label(text: String) -> void:

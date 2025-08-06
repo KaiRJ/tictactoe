@@ -67,7 +67,7 @@ func update_labels():
 	
 
 func show_in_game_menu(label_text: String, show_continue_button: bool, show_quit_button: bool) -> void:
-	$Board.freeze_board(true)
+	$Board.disable_free_squares(true)
 	$InGameMenu.update_label(label_text)
 	$InGameMenu.show_continue_button(show_continue_button)
 	$InGameMenu.show_quit_button(show_quit_button)
@@ -79,7 +79,7 @@ func _on_hud_show_in_game_menu():
 
 
 func _on_in_game_menu_continue_game():
-	$Board.freeze_board(false)
+	$Board.disable_free_squares(false)
 	$InGameMenu.hide()
 
 

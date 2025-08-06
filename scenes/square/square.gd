@@ -1,4 +1,4 @@
-extends Area2D
+extends Button
 class_name Square
 
 signal square_pressed(square: Square)
@@ -7,21 +7,20 @@ signal square_pressed(square: Square)
 
 
 func reset():
-	$Face.texture = null
-	set_button_visability(true)
+	set_icon(null)
+	disable(false)
+	self.add_to_group("free_squares")
 
 
-func get_grid_position() -> Vector2i:
-	return grid_position
+func set_icon(player: CompressedTexture2D):
+	self.icon = player
 
 
-func set_button_visability(visable : bool):
-	$Button.visible = visable
+func disable(dis: bool):
+	self.disabled = dis
 
 
-func set_face_texture(player_symbol : CompressedTexture2D):
-	$Face.texture = player_symbol
-
-
-func _on_button_pressed():
+func _on_pressed() -> void:
+	disable(true)
+	self.remove_from_group("free_squares")
 	square_pressed.emit()

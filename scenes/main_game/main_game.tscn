@@ -17,21 +17,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.540435, 0.754487, 0.938484, 1)
 
-[node name="Board" parent="." instance=ExtResource("2_6eclk")]
-position = Vector2(240, 296)
-
 [node name="HUD" parent="." instance=ExtResource("3_i3kwu")]
 
-[node name="InGameMenu" parent="." instance=ExtResource("5_ldk84")]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Board" parent="." instance=ExtResource("2_6eclk")]
 
-[connection signal="winner" from="Board" to="." method="_on_board_winner"]
+[node name="InGameMenu" parent="." instance=ExtResource("5_ldk84")]
+
 [connection signal="show_in_game_menu" from="HUD" to="." method="_on_hud_show_in_game_menu"]
+[connection signal="winner" from="Board" to="." method="_on_board_winner"]
 [connection signal="continue_game" from="InGameMenu" to="." method="_on_in_game_menu_continue_game"]
 [connection signal="quit_game" from="InGameMenu" to="." method="_on_in_game_menu_quit_game"]

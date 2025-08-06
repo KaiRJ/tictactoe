@@ -7,61 +7,100 @@
 [ext_resource type="Texture2D" uid="uid://d7uox6ygm4f4" path="res://art/o.png" id="4_ir24l"]
 [ext_resource type="FontFile" uid="uid://cl116rahkaxh4" path="res://art/Xolonium-Regular.ttf" id="5_ci4ar"]
 
-[node name="Board" type="Sprite2D"]
-texture = ExtResource("1_vi572")
+[node name="Board" type="VBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -384.0
+offset_right = 160.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
 script = ExtResource("2_bfbbh")
 player1 = ExtResource("3_b6u2j")
 player2 = ExtResource("4_ir24l")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-anchors_preset = 10
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_vi572")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -152.0
-offset_top = -223.0
-offset_right = -152.0
-offset_bottom = -143.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 13
+theme_override_constants/margin_bottom = 13
+
+[node name="GridContainer" type="GridContainer" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 13
+theme_override_constants/v_separation = 13
+columns = 3
+
+[node name="TopLeft" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="TopMiddle" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(0, 1)
+
+[node name="TopRight" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(0, 2)
+
+[node name="MiddleLeft" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(1, 0)
+
+[node name="Middle" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(1, 1)
+
+[node name="MiddleRight" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(1, 2)
+
+[node name="BottomLeft" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(2, 0)
+
+[node name="BottomMiddle" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(2, 1)
+
+[node name="BottomRight" parent="TextureRect/MarginContainer/GridContainer" instance=ExtResource("2_eagde")]
+layout_mode = 2
+grid_position = Vector2i(2, 2)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 8
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("5_ci4ar")
 theme_override_font_sizes/font_size = 25
 text = "Current player: "
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-
-[node name="TopLeft" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(-96, -96)
-
-[node name="TopMiddle" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(0, -96)
-grid_position = Vector2i(0, 1)
-
-[node name="TopRight" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(96, -96)
-grid_position = Vector2i(0, 2)
-
-[node name="MiddleLeft" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(-96, 0)
-grid_position = Vector2i(1, 0)
-
-[node name="Middle" parent="." instance=ExtResource("2_eagde")]
-grid_position = Vector2i(1, 1)
-
-[node name="MiddleRight" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(96, 0)
-grid_position = Vector2i(1, 2)
-
-[node name="BottomLeft" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(-96, 96)
-grid_position = Vector2i(2, 0)
-
-[node name="BottomMiddle" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(0, 96)
-grid_position = Vector2i(2, 1)
-
-[node name="BottomRight" parent="." instance=ExtResource("2_eagde")]
-position = Vector2(96, 96)
-grid_position = Vector2i(2, 2)
+expand_mode = 5
+stretch_mode = 4
