@@ -1,0 +1,3 @@
+* TicTacToe
+
+Entire Tic Tac Toe game example in godot 4.2. With a functioning AI player that has a hard and easy mode.
