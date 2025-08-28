@@ -24,9 +24,17 @@ func new_game(starting_player := Constants.Player.ONE):
 		[0, 0, 0],
 		[0, 0, 0]
 	]
-	
+
 	set_current_player(starting_player)
+	start_round()
+
+
+func start_round() -> void:
+	disable_free_squares(false)
+	if (Globals.ai_active) and (current_player == Constants.Player.TWO):
+		make_ai_move()
 	
+
 
 func set_current_player(player: Constants.Player):
 	current_player = player
@@ -40,6 +48,7 @@ func set_current_player(player: Constants.Player):
 
 
 func _on_square_pressed(square : Square):
+	disable_free_squares(true)
 	board_data[square.grid_position.x][square.grid_position.y] = current_player
 
 	# Set the squares face by the current player
@@ -49,13 +58,9 @@ func _on_square_pressed(square : Square):
 		Constants.Player.TWO:
 			square.icon = player2
 
-	if check_for_game_end():
-		return
-		
-	set_current_player((-1 * current_player) as Constants.Player)
-	
-	if (Globals.ai_active) and (current_player == Constants.Player.TWO):
-		make_ai_move()
+	if not check_for_game_end():	
+		set_current_player((-1 * current_player) as Constants.Player)
+		start_round()
 
 
 func check_for_game_end() -> bool:
@@ -115,7 +120,7 @@ func make_ai_move() -> void:
 	
 
 func pick_random() -> Square:
-	var free_squares := get_tree().get_nodes_in_group("free_squares")	
+	var free_squares := get_tree().get_nodes_in_group("free_squares")
 	var random_square: Square = free_squares.pick_random()
 	return random_square
 
@@ -136,15 +141,17 @@ func pick_smart() -> Square:
 		var second_candidates = free_squares.duplicate()
 		second_candidates.remove_at(i)
 		for j in range(len(second_candidates)):
+			# new to make new copies for the next move 
+			var second_newboard = newboard.duplicate(true)
 			var second_candidate = second_candidates[j]
-			newboard[second_candidate.grid_position.x][second_candidate.grid_position.y] = Constants.Player.ONE
+			second_newboard[second_candidate.grid_position.x][second_candidate.grid_position.y] = Constants.Player.ONE
 			
-			if (check_for_win(newboard)):
+			if (check_for_win(second_newboard)):
 				losing_move = second_candidate
 
-			# if opponent has a winning move, block it
-			if (losing_move != null):
-				return losing_move
+	# if AI cant win and opponent has a winning move, block it
+	if (losing_move != null):
+		return losing_move
 		
 	# otherwise return a random choice
 	return pick_random()

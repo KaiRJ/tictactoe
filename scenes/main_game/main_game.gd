@@ -40,8 +40,11 @@ func _on_board_winner(winner : Constants.Player):
 	else: 
 		# Set up the game for the next round and show the continue pop up
 		last_starting_player = (-1*last_starting_player) as Constants.Player
+		show_in_game_menu(winner_text + "this round!", false, false)
+		await get_tree().create_timer(1.5).timeout
+		$InGameMenu.hide()
 		$Board.new_game(last_starting_player)
-		show_in_game_menu(winner_text + "this round!", true, false)
+		
 
 
 func update_player_scores(winner: Constants.Player) -> String:	
@@ -79,8 +82,8 @@ func _on_hud_show_in_game_menu():
 
 
 func _on_in_game_menu_continue_game():
-	$Board.disable_free_squares(false)
 	$InGameMenu.hide()
+	$Board.start_round()
 
 
 func _on_in_game_menu_quit_game():

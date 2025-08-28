@@ -20,6 +20,7 @@ size_flags_vertical = 3
 theme_type_variation = &"FlatButton"
 theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
 toggle_mode = true
+flat = true
 script = ExtResource("1_qj746")
 metadata/_edit_group_ = true
 
